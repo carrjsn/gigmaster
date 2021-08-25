@@ -1,7 +1,8 @@
 import React from 'react';
+import Register from './Register.jsx';
 
 const App = (props) => (
-  <h2>Inside the app</h2>
+  <Register />
 );
 
 export default App;
