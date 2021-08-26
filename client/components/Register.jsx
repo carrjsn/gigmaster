@@ -6,19 +6,19 @@ class Register extends React.Component {
     super(props);
 
     this.state = {
-      name: null,
-      city: null,
-      state: null,
-      zip: null,
+      name: '',
+      city: '',
+      state: '',
+      zip: '',
       instruments: [],
       genre: [],
-      photo: null,
-      bio: null,
-      website: null,
-      maxTravel: 50,
-      minPay: 0,
-      phone: null,
-      email: null
+      photo: '',
+      bio: '',
+      website: '',
+      maxTravel: '',
+      minPay: '',
+      phone: '',
+      email: ''
     }
 
     this.changeInstrument = this.changeInstrument.bind(this);
@@ -29,19 +29,19 @@ class Register extends React.Component {
 
   resetState() {
     this.setState({
-      name: null,
-      city: null,
-      state: null,
-      zip: null,
+      name: '',
+      city: '',
+      state: '',
+      zip: '',
       instruments: [],
       genre: [],
-      photo: null,
-      bio: null,
-      website: null,
-      maxTravel: 50,
-      minPay: 0,
-      phone: null,
-      email: null
+      photo: '',
+      bio: '',
+      website: '',
+      maxTravel: '',
+      minPay: '',
+      phone: '',
+      email: ''
     });
   }
 
@@ -139,13 +139,13 @@ class Register extends React.Component {
     let options = this.state;
     axios.post('http://localhost:3600/musicians', options)
       .then((results) => {
-        console.log('post client to server')
+        console.log('post client to server');
+        this.resetState();
       })
       .catch((err) => {
         console.log('error')
       })
 
-    this.resetState();
   }
 
   render() {
@@ -154,15 +154,15 @@ class Register extends React.Component {
       <form>
         <label className='category'>
           Name:
-          <input type='text' onChange={(e) => this.changeName(e)}></input>
+          <input type='text' value={this.state.name} onChange={(e) => this.changeName(e)}></input>
         </label>
         <label className='category'>
           City:
-          <input type='text' onChange={(e) => this.changeCity(e)}></input>
+          <input type='text' value={this.state.city} onChange={(e) => this.changeCity(e)}></input>
         </label>
         <label className='category'>
           State:
-          <select onChange={(e) => this.changeState(e)}>
+          <select value={this.state.state} onChange={(e) => this.changeState(e)}>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AZ">AZ</option>
@@ -218,7 +218,7 @@ class Register extends React.Component {
         </label>
         <label className='category'>
           Zip:
-          <input type='text' onChange={(e) => this.changeZip(e)}></input>
+          <input type='text' value={this.state.zip} onChange={(e) => this.changeZip(e)}></input>
         </label >
         {/* <Instruments />
         <Genres /> */}
@@ -249,31 +249,31 @@ class Register extends React.Component {
         </label>
         <label className='category'>
           Photo:
-          <input type='text' onChange={(e) => this.changePhoto(e)}></input>
+          <input type='text' value={this.state.photo} onChange={(e) => this.changePhoto(e)}></input>
         </label>
         <label className='category'>
           Bio:
-          <input type='text' onChange={(e) => this.changeBio(e)}></input>
+          <input type='text' value={this.state.bio} onChange={(e) => this.changeBio(e)}></input>
         </label>
         <label className='category'>
           Website:
-          <input type='text' onChange={(e) => this.changeWebsite(e)}></input>
+          <input type='text' value={this.state.website} onChange={(e) => this.changeWebsite(e)}></input>
         </label>
         <label className='category'>
           Max Travel Distance (miles):
-          <input type='text' onChange={(e) => this.changeMaxTravel(e)}></input>
+          <input type='text' value={this.state.maxTravel} onChange={(e) => this.changeMaxTravel(e)}></input>
         </label>
         <label className='category'>
           Minimum Pay:
-          <input type='text' onChange={(e) => this.changeMinPay(e)}></input>
+          <input type='text' value={this.state.minPay} onChange={(e) => this.changeMinPay(e)}></input>
         </label>
         <label className='category'>
           Phone:
-          <input type='text' onChange={(e) => this.changePhone(e)}></input>
+          <input type='text' value={this.state.phone} onChange={(e) => this.changePhone(e)}></input>
         </label>
         <label className='category'>
           Email:
-          <input type='text' onChange={(e) => this.changeEmail(e)}></input>
+          <input type='text' value={this.state.email} onChange={(e) => this.changeEmail(e)}></input>
         </label>
 
         <button onClick={this.handleSubmit.bind(this)}>Submit</button>

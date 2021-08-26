@@ -12,12 +12,13 @@ app.use(bodyParser.json());
 app.post('/musicians', (req, res) => {
   // add musician to database
   console.log('req.body', req.body);
-
+  res.send()
 });
 
 app.post('/giginfo', (req, res) => {
   // get musicians that match criteria
   console.log('post req.data', req.body)
+  res.send()
 });
 
 

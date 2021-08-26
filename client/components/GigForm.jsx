@@ -6,14 +6,14 @@ class GigForm extends React.Component {
     super(props);
 
     this.state = {
-      name: null,
-      city: null,
-      state: null,
-      zip: null,
+      name: '',
+      city: '',
+      state: '',
+      zip: '',
       instrumentsNeeded: [],
       genre: [],
-      pay: null,
-      summary: null
+      pay: '',
+      summary: ''
     }
 
     this.changeInstrumentsNeeded = this.changeInstrumentsNeeded.bind(this);
@@ -25,14 +25,14 @@ class GigForm extends React.Component {
   resetState() {
     console.log('state reset')
     this.setState({
-      name: null,
-      city: null,
-      state: null,
-      zip: null,
+      name: '',
+      city: '',
+      state: '',
+      zip: '',
       instrumentsNeeded: [],
       genre: [],
-      pay: null,
-      summary: null
+      pay: '',
+      summary: ''
     }, () => console.log(this.state));
   }
 
@@ -100,30 +100,29 @@ class GigForm extends React.Component {
     let options = this.state;
     axios.post('http://localhost:3600/giginfo', options)
       .then((results) => {
-        console.log('sent gig info to server')
+        console.log('sent gig info to server');
+        this.resetState();
       })
       .catch((err) => {
         console.log('error')
       })
-
-    this.resetState();
   }
 
   render() {
-
+    console.log('render')
     return (
       <form>
         <label className='category'>
           Name:
-          <input type='text' onChange={(e) => this.changeName(e)}></input>
+          <input type='text' value={this.state.name} onChange={(e) => this.changeName(e)}></input>
         </label>
         <label className='category'>
           City:
-          <input type='text' onChange={(e) => this.changeCity(e)}></input>
+          <input type='text' value={this.state.city} onChange={(e) => this.changeCity(e)}></input>
         </label>
         <label className='category'>
           State:
-          <select onChange={(e) => this.changeState(e)}>
+          <select value={this.state.state} onChange={(e) => this.changeState(e)}>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AZ">AZ</option>
@@ -180,7 +179,7 @@ class GigForm extends React.Component {
         </label>
         <label className='category'>
           Zip:
-          <input type='text' onChange={(e) => this.changeZip(e)}></input>
+          <input type='text' value={this.state.zip} onChange={(e) => this.changeZip(e)}></input>
         </label >
         {/* <Instruments />
         <Genres /> */}
@@ -211,11 +210,11 @@ class GigForm extends React.Component {
         </label>
         <label className='category'>
           Pay:
-          <input type='text' onChange={(e) => this.changePay(e)}></input>
+          <input type='text' value={this.state.pay} onChange={(e) => this.changePay(e)}></input>
         </label>
         <label className='category'>
           Summary:
-          <input type='text' onChange={(e) => this.changeSummary(e)}></input>
+          <input type='text' value={this.state.summary} onChange={(e) => this.changeSummary(e)}></input>
         </label>
 
         <button onClick={this.handleSubmit.bind(this)}>Search for Musicians!</button>
