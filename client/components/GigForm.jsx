@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class GigForm extends React.Component {
   constructor(props) {
@@ -9,12 +10,30 @@ class GigForm extends React.Component {
       city: null,
       state: null,
       zip: null,
-      instrumentsNeeded: null,
-      genre: null,
+      instrumentsNeeded: [],
+      genre: [],
       pay: null,
       summary: null
     }
 
+    this.changeInstrumentsNeeded = this.changeInstrumentsNeeded.bind(this);
+    this.changeGenre = this.changeGenre.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+
+  resetState() {
+    console.log('state reset')
+    this.setState({
+      name: null,
+      city: null,
+      state: null,
+      zip: null,
+      instrumentsNeeded: [],
+      genre: [],
+      pay: null,
+      summary: null
+    }, () => console.log(this.state));
   }
 
   changeName(e) {
@@ -43,15 +62,23 @@ class GigForm extends React.Component {
 
   // make handle multiples eventually
   changeInstrumentsNeeded(e) {
-    this.setState({
-      instrumentsNeeded: e.target.value
+    console.log(e.target.value);
+    this.setState((prev) => {
+      let arr = prev.instrumentsNeeded.concat(e.target.value);
+      return {
+        instrumentsNeeded: arr
+      }
     }, () => console.log(this.state));
   }
 
   // make handle multiples eventually
   changeGenre(e) {
-    this.setState({
-      genre: e.target.value
+    console.log(e.target.value);
+    this.setState((prev) => {
+      let arr = prev.genre.concat(e.target.value);
+      return {
+        genre: arr
+      }
     }, () => console.log(this.state));
   }
 
@@ -69,9 +96,17 @@ class GigForm extends React.Component {
 
   handleSubmit(e) {
     // TODO: fetch things
-    e.preventDefault()
-    console.log('submitted')
-    console.log(this.state);
+    e.preventDefault();
+    let options = this.state;
+    axios.post('http://localhost:3600/giginfo', options)
+      .then((results) => {
+        console.log('sent gig info to server')
+      })
+      .catch((err) => {
+        console.log('error')
+      })
+
+    this.resetState();
   }
 
   render() {
@@ -88,7 +123,60 @@ class GigForm extends React.Component {
         </label>
         <label className='category'>
           State:
-          <input type='text' onChange={(e) => this.changeState(e)}></input>
+          <select onChange={(e) => this.changeState(e)}>
+            <option value="AL">AL</option>
+            <option value="AK">AK</option>
+            <option value="AZ">AZ</option>
+            <option value="AR">AR</option>
+            <option value="CA">CA</option>
+            <option value="CO">CO</option>
+            <option value="CT">CT</option>
+            <option value="DE">DE</option>
+            <option value="DC">DC</option>
+            <option value="FL">FL</option>
+            <option value="GA">GA</option>
+            <option value="HI">HI</option>
+            <option value="ID">ID</option>
+            <option value="IL">IL</option>
+            <option value="IN">IN</option>
+            <option value="IA">IA</option>
+            <option value="KS">KS</option>
+            <option value="KY">KY</option>
+            <option value="LA">LA</option>
+            <option value="ME">ME</option>
+            <option value="MD">MD</option>
+            <option value="MA">MA</option>
+            <option value="MI">MI</option>
+            <option value="MN">MN</option>
+            <option value="MS">MS</option>
+            <option value="MO">MO</option>
+            <option value="MT">MT</option>
+            <option value="NE">NE</option>
+            <option value="NV">NV</option>
+            <option value="NH">NH</option>
+            <option value="NJ">NJ</option>
+            <option value="NM">NM</option>
+            <option value="NY">NY</option>
+            <option value="NC">NC</option>
+            <option value="ND">ND</option>
+            <option value="OH">OH</option>
+            <option value="OK">OK</option>
+            <option value="OR">OR</option>
+            <option value="PA">PA</option>
+            <option value="RI">RI</option>
+            <option value="SC">SC</option>
+            <option value="SD">SD</option>
+            <option value="TN">TN</option>
+            <option value="TX">TX</option>
+            <option value="UT">UT</option>
+            <option value="VT">VT</option>
+            <option value="VA">VA</option>
+            <option value="WA">WA</option>
+            <option value="WV">WV</option>
+            <option value="WI">WI</option>
+            <option value="WY">WY</option>
+          </select>
+          {/* <input type='text' onChange={(e) => this.changeState(e)}></input> */}
         </label>
         <label className='category'>
           Zip:
@@ -97,30 +185,29 @@ class GigForm extends React.Component {
         {/* <Instruments />
         <Genres /> */}
         <label className='category'>
-          Instruments Needed:
-          <select onChange={(e) => this.changeInstrumentsNeeded(e)}>
-            <option>Bass</option>
-            <option>Guitar</option>
-            <option>Drums</option>
-            <option>Saxophone</option>
-            <option>Trumpet</option>
-            <option>Vocals</option>
-            <option>Piano</option>
-            <option>Keyboard</option>
-          </select>
+          Instruments Needed: (choose all that apply)
+          <div>
+            <input type='radio' value='Bass' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Bass
+            <input type='radio' value='Guitar' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Guitar
+            <input type='radio' value='Piano' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Piano
+            <input type='radio' value='Drums' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Drums
+            <input type='radio' value='Saxophone' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Saxophone
+            <input type='radio' value='Trumpet' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Trumpet
+            <input type='radio' value='Vocals' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Vocals
+          </div>
         </label>
         <label className='category'>
-          Genre:
-          <select onChange={(e) => this.changeGenre(e)}>
-            <option>Country</option>
-            <option>Jazz</option>
-            <option>Rock</option>
-            <option>Folk</option>
-            <option>Bluegrass</option>
-            <option>Classical</option>
-            <option>Metal</option>
-            <option>Indie</option>
-          </select>
+          Genre: (choose all that apply)
+          <div>
+            <input type='radio' value='Country' onChange={(e) => this.changeGenre(e)}/>Country
+            <input type='radio' value='Jazz' onChange={(e) => this.changeGenre(e)}/>Jazz
+            <input type='radio' value='Rock' onChange={(e) => this.changeGenre(e)}/>Rock
+            <input type='radio' value='Folk' onChange={(e) => this.changeGenre(e)}/>Folk
+            <input type='radio' value='Bluegrass' onChange={(e) => this.changeGenre(e)}/>Bluegrass
+            <input type='radio' value='Classical' onChange={(e) => this.changeGenre(e)}/>Classical
+            <input type='radio' value='Soul' onChange={(e) => this.changeGenre(e)}/>Soul
+            <input type='radio' value='Metal' onChange={(e) => this.changeGenre(e)}/>Metal
+          </div>
         </label>
         <label className='category'>
           Pay:

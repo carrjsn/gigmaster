@@ -1,7 +1,8 @@
 
-CREATE DATABASE gigdex;
+-- CREATE DATABASE mvp2;
 
-USE DATABASE gigdex;
+-- use mvp2 database
+\c mvp2;
 
 CREATE TABLE musicians(
   id serial PRIMARY KEY,
@@ -14,8 +15,8 @@ CREATE TABLE musicians(
   photo text,
   bio text,
   website text,
-  max-travel int,
-  min-pay int,
+  max_travel int,
+  min_pay int,
   phone varchar(10),
   email text
 );
