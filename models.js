@@ -1,10 +1,39 @@
 const db = require('./db/connect.js');
+const zipcodes = require('zipcodes');
+const { getDistance } = require('geolib');
 
 const findMusicians = (options, callback) => {
   // get musicians from DB
-  // console.log('gig model options', options)
+  console.log('gig model options', options)
 
+  // filter by minimum pay
+  db.query(`SELECT id, name, min_pay, zip, max_travel, email FROM musicians WHERE min_pay < ${Number(options.pay)}`)
+    .then(async (results) => {
+      let musicians = [];
 
+      // filter by distance musician is willing to travel
+      let gigCoords = zipcodes.lookup(options.zip);
+      for (let musician of results.rows) {
+        let musicianCoords = zipcodes.lookup(musician.zip);
+        let distanceInMeters = getDistance(
+          { latitude: gigCoords.latitude, longitude: gigCoords.longitude },
+          { latitude: musicianCoords.latitude, longitude: musicianCoords.longitude }
+        );
+        let distanceInMiles = distanceInMeters * 0.000621371;
+        console.log('distance', distanceInMiles);
+        if (distanceInMiles < musician.max_travel) {
+          musicians.push(musician);
+        }
+      }
+
+      return musicians;
+    })
+    .then((matches) => {
+      console.log('left over', matches);
+    })
+    .catch((err) => {
+      callback(err, null)
+    })
 
 
 };
