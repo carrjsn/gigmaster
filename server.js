@@ -11,14 +11,32 @@ app.use(bodyParser.json());
 // routes
 app.post('/musicians', (req, res) => {
   // add musician to database
-  console.log('req.body', req.body);
-  res.send()
+  console.log('post req.data', req.body)
+  addMusician(req.body, (err, data) => {
+    if (err) {
+      console.log('gig err', err);
+      res.sendStatus(400);
+    } else {
+      console.log('data', data)
+      res.sendStatus(200);
+    }
+  });
+
 });
 
 app.post('/giginfo', (req, res) => {
   // get musicians that match criteria
-  console.log('post req.data', req.body)
-  res.send()
+  // console.log('gig req body', req.body);
+  findMusicians(req.body, (err, data) => {
+    if (err) {
+      console.log('err', err)
+      res.sendStatus(400);
+    } else {
+      console.log('data in server', data);
+      res.sendStatus(200);
+      res.json(data);
+    }
+  });
 });
 
 

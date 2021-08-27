@@ -6,7 +6,7 @@ class GigForm extends React.Component {
     super(props);
 
     this.state = {
-      name: '',
+      event: '',
       city: '',
       state: '',
       zip: '',
@@ -36,9 +36,9 @@ class GigForm extends React.Component {
     }, () => console.log(this.state));
   }
 
-  changeName(e) {
+  changeEventName(e) {
     this.setState({
-      name: e.target.value
+      event: e.target.value
     }, () => console.log(this.state));
   }
 
@@ -113,8 +113,8 @@ class GigForm extends React.Component {
     return (
       <form>
         <label className='category'>
-          Name:
-          <input type='text' value={this.state.name} onChange={(e) => this.changeName(e)}></input>
+          Event:
+          <input type='text' value={this.state.event} onChange={(e) => this.changeEventName(e)}></input>
         </label>
         <label className='category'>
           City:
