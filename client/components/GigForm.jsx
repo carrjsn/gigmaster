@@ -186,26 +186,26 @@ class GigForm extends React.Component {
         <label className='category'>
           Instruments Needed: (choose all that apply)
           <div>
-            <input type='radio' value='Bass' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Bass
-            <input type='radio' value='Guitar' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Guitar
-            <input type='radio' value='Piano' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Piano
-            <input type='radio' value='Drums' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Drums
-            <input type='radio' value='Saxophone' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Saxophone
-            <input type='radio' value='Trumpet' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Trumpet
-            <input type='radio' value='Vocals' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Vocals
+            <input type='radio' value='bass' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Bass
+            <input type='radio' value='guitar' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Guitar
+            <input type='radio' value='piano' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Piano
+            <input type='radio' value='drums' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Drums
+            <input type='radio' value='saxophone' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Saxophone
+            <input type='radio' value='trumpet' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Trumpet
+            <input type='radio' value='vocals' onChange={(e) => this.changeInstrumentsNeeded(e)}/>Vocals
           </div>
         </label>
         <label className='category'>
           Genre: (choose all that apply)
           <div>
-            <input type='radio' value='Country' onChange={(e) => this.changeGenre(e)}/>Country
-            <input type='radio' value='Jazz' onChange={(e) => this.changeGenre(e)}/>Jazz
-            <input type='radio' value='Rock' onChange={(e) => this.changeGenre(e)}/>Rock
-            <input type='radio' value='Folk' onChange={(e) => this.changeGenre(e)}/>Folk
-            <input type='radio' value='Bluegrass' onChange={(e) => this.changeGenre(e)}/>Bluegrass
-            <input type='radio' value='Classical' onChange={(e) => this.changeGenre(e)}/>Classical
-            <input type='radio' value='Soul' onChange={(e) => this.changeGenre(e)}/>Soul
-            <input type='radio' value='Metal' onChange={(e) => this.changeGenre(e)}/>Metal
+            <input type='radio' value='country' onChange={(e) => this.changeGenre(e)}/>Country
+            <input type='radio' value='jazz' onChange={(e) => this.changeGenre(e)}/>Jazz
+            <input type='radio' value='rock' onChange={(e) => this.changeGenre(e)}/>Rock
+            <input type='radio' value='folk' onChange={(e) => this.changeGenre(e)}/>Folk
+            <input type='radio' value='bluegrass' onChange={(e) => this.changeGenre(e)}/>Bluegrass
+            <input type='radio' value='classical' onChange={(e) => this.changeGenre(e)}/>Classical
+            <input type='radio' value='soul' onChange={(e) => this.changeGenre(e)}/>Soul
+            <input type='radio' value='metal' onChange={(e) => this.changeGenre(e)}/>Metal
           </div>
         </label>
         <label className='category'>

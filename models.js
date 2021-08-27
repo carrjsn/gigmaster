@@ -8,11 +8,12 @@ const findMusicians = (options, callback) => {
 
   // filter by minimum pay
   db.query(`SELECT id, name, min_pay, zip, max_travel, email FROM musicians WHERE min_pay < ${Number(options.pay)}`)
-    .then(async (results) => {
+    .then( async (results) => {
       let musicians = [];
 
       // filter by distance musician is willing to travel
       let gigCoords = zipcodes.lookup(options.zip);
+      console.log(gigCoords);
       for (let musician of results.rows) {
         let musicianCoords = zipcodes.lookup(musician.zip);
         let distanceInMeters = getDistance(
@@ -28,8 +29,46 @@ const findMusicians = (options, callback) => {
 
       return musicians;
     })
-    .then((matches) => {
+    .then( async (matches) => {
+
       console.log('left over', matches);
+      // get instruments
+      for (let musician of matches) {
+        // musician.instruments = [];
+        console.log(options.instrumentsNeeded);
+        // musician = object ---- add instruments [] as property
+        // await db.query(`SELECT instruments.name, instruments.id, instruments_musicians.musician_id FROM instruments, instruments_musicians WHERE '${musician.id}' = instruments_musicians.musician_id AND lower(instruments.name) = ANY(ARRAY${options.instrumentsNeeded})`)
+        console.log('currmusician', musician);
+        console.log(options.instrumentsNeeded.join(', '));
+        // just get the musician's insturments they play here. dont worry about the filter yet!!
+        await db.query(`SELECT instruments.name FROM instruments, instruments_musicians WHERE '${musician.id}' = instruments_musicians.musician_id AND instruments.id = instruments_musicians.instrument_id`)
+          .then((results) => {
+            let instruments = results.rows.map(item => item.name);
+            musician.instruments = instruments;
+          })
+
+      }
+      console.log('matches', matches);
+      // filter by instruments needed
+      let musicians = matches.filter(musician => {
+        // return curr musician if any of instruments are in instruments needed
+        for (let i = 0; i < options.instrumentsNeeded.length; i++) {
+          let instrumentNeeded = options.instrumentsNeeded[i];
+          if (musician.instruments.includes(instrumentNeeded)) {
+            return musician;
+          }
+        }
+      })
+
+      console.log('filtered matches', musicians);
+
+
+      return musicians;
+    })
+    .then((matches) => {
+      // get genres
+
+      // filter by gig genre
     })
     .catch((err) => {
       callback(err, null)
