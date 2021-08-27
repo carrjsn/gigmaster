@@ -33,8 +33,8 @@ app.post('/giginfo', (req, res) => {
       res.sendStatus(400);
     } else {
       console.log('data in server', data);
-      res.sendStatus(200);
-      res.json(data);
+      res.status(200);
+      res.send(data);
     }
   });
 });

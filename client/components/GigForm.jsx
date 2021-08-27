@@ -101,7 +101,8 @@ class GigForm extends React.Component {
     axios.post('http://localhost:3600/giginfo', options)
       .then((results) => {
         console.log('sent gig info to server');
-        this.resetState();
+        console.log('results client', results.data);
+        // this.resetState();
       })
       .catch((err) => {
         console.log('error')

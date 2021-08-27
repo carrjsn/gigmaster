@@ -7,6 +7,7 @@ const findMusicians = (options, callback) => {
   console.log('gig model options', options)
 
   // filter by minimum pay
+  // TODO: add more columns to extract here for react rendering later.. phone, website...
   db.query(`SELECT id, name, min_pay, zip, max_travel, email FROM musicians WHERE min_pay < ${Number(options.pay)}`)
     .then( async (results) => {
       let musicians = [];
@@ -30,25 +31,17 @@ const findMusicians = (options, callback) => {
       return musicians;
     })
     .then( async (matches) => {
-
-      console.log('left over', matches);
       // get instruments
       for (let musician of matches) {
-        // musician.instruments = [];
-        console.log(options.instrumentsNeeded);
-        // musician = object ---- add instruments [] as property
-        // await db.query(`SELECT instruments.name, instruments.id, instruments_musicians.musician_id FROM instruments, instruments_musicians WHERE '${musician.id}' = instruments_musicians.musician_id AND lower(instruments.name) = ANY(ARRAY${options.instrumentsNeeded})`)
-        console.log('currmusician', musician);
-        console.log(options.instrumentsNeeded.join(', '));
         // just get the musician's insturments they play here. dont worry about the filter yet!!
         await db.query(`SELECT instruments.name FROM instruments, instruments_musicians WHERE '${musician.id}' = instruments_musicians.musician_id AND instruments.id = instruments_musicians.instrument_id`)
           .then((results) => {
             let instruments = results.rows.map(item => item.name);
+            // add instruments prop to obj
             musician.instruments = instruments;
           })
-
       }
-      console.log('matches', matches);
+
       // filter by instruments needed
       let musicians = matches.filter(musician => {
         // return curr musician if any of instruments are in instruments needed
@@ -60,15 +53,39 @@ const findMusicians = (options, callback) => {
         }
       })
 
-      console.log('filtered matches', musicians);
-
-
+      console.log('filter instrument', musicians);
       return musicians;
+
     })
-    .then((matches) => {
+    .then(async (matches) => {
       // get genres
+      for (let musician of matches) {
+        // just get the musician's genres they play here. dont worry about the filter yet!!
+        await db.query(`SELECT genres.name FROM genres, genres_musicians WHERE '${musician.id}' = genres_musicians.musician_id AND genres.id = genres_musicians.genre_id`)
+          .then((results) => {
+            let genres = results.rows.map(item => item.name);
+            // add genres prop to obj
+            musician.genres = genres;
+          })
+      }
 
       // filter by gig genre
+      let musicians = matches.filter(musician => {
+        // return curr musician if any of genres are in gig genres
+        for (let i = 0; i < options.genre.length; i++) {
+          let currGenre = options.genre[i];
+          if (musician.genres.includes(currGenre)) {
+            return musician;
+          }
+        }
+      })
+
+      console.log('filter genre', musicians);
+      return musicians;
+
+    })
+    .then((matches) => {
+      callback(null, matches)
     })
     .catch((err) => {
       callback(err, null)
@@ -79,7 +96,6 @@ const findMusicians = (options, callback) => {
 
 const addMusician = (options, callback) => {
   // add musician to DB
-  // console.log('add model options', options)
 
   // add all columns except instruments and genres
   db.query(`INSERT INTO musicians (name, city, state, zip, photo, bio, website, max_travel, min_pay, phone, email) VALUES ('${options.name}', '${options.city}', '${options.state}', '${options.zip}', '${options.photo}', '${options.bio}', '${options.website}', '${options.maxTravel}', '${options.minPay}', '${options.phone}', '${options.email}') RETURNING id`)
