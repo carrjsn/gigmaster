@@ -18,7 +18,7 @@ class GigForm extends React.Component {
 
     this.changeInstrumentsNeeded = this.changeInstrumentsNeeded.bind(this);
     this.changeGenre = this.changeGenre.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
     this.resetState = this.resetState.bind(this);
   }
 
@@ -94,20 +94,20 @@ class GigForm extends React.Component {
     }, () => console.log(this.state));
   }
 
-  handleSubmit(e) {
-    // TODO: fetch things
-    e.preventDefault();
-    let options = this.state;
-    axios.post('http://localhost:3600/giginfo', options)
-      .then((results) => {
-        console.log('sent gig info to server');
-        console.log('results client', results.data);
-        // this.resetState();
-      })
-      .catch((err) => {
-        console.log('error')
-      })
-  }
+  // handleSubmit(e) {
+  //   // TODO: fetch things
+  //   e.preventDefault();
+  //   let options = this.state;
+  //   axios.post('http://localhost:3600/giginfo', options)
+  //     .then((results) => {
+  //       console.log('sent gig info to server');
+  //       console.log('results client', results.data);
+  //       // this.resetState();
+  //     })
+  //     .catch((err) => {
+  //       console.log('error')
+  //     })
+  // }
 
   render() {
     console.log('render')
@@ -218,7 +218,7 @@ class GigForm extends React.Component {
           <input type='text' value={this.state.summary} onChange={(e) => this.changeSummary(e)}></input>
         </label>
 
-        <button onClick={this.handleSubmit.bind(this)}>Search for Musicians!</button>
+        <button onClick={(e) => this.props.handleGigSubmit(e, this.state)}>Search for Musicians!</button>
       </form>
     )
   }
