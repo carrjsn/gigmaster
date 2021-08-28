@@ -1,6 +1,7 @@
 import React from 'react';
 import Register from './Register.jsx';
 import GigForm from './GigForm.jsx';
+import Musician from './Musician.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -41,7 +42,7 @@ class App extends React.Component {
       <div>
         <h3>Musicians matching your description</h3>
         <ul>
-          {this.state.musicians.map((musician, id) => <li key={id}>{musician.name}</li>)}
+          {this.state.musicians.map((musician, id) => <li key={id}><Musician details={musician}/></li>)}
         </ul>
       </div>
     } else {
