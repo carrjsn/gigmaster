@@ -124,6 +124,7 @@ class GigForm extends React.Component {
         <label className='category'>
           State:
           <select value={this.state.state} onChange={(e) => this.changeState(e)}>
+          <option value="-" selected='selected'>-</option>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AZ">AZ</option>
@@ -213,10 +214,10 @@ class GigForm extends React.Component {
           Pay:
           <input type='text' value={this.state.pay} onChange={(e) => this.changePay(e)}></input>
         </label>
-        <label className='category'>
+        {/* <label className='category'>
           Summary:
           <input type='text' value={this.state.summary} onChange={(e) => this.changeSummary(e)}></input>
-        </label>
+        </label> */}
 
         <button onClick={(e) => this.props.handleGigSubmit(e, this.state)}>Search for Musicians!</button>
       </form>

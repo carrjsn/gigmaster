@@ -58,7 +58,7 @@ class App extends React.Component {
           <Register />
           </div>
           <div className='gigform'>
-          <h3>Enter Gig Info</h3>
+          <h3>Enter Event Info</h3>
           <GigForm handleGigSubmit={this.handleGigSubmit} />
           </div>
         </div>

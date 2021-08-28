@@ -163,6 +163,7 @@ class Register extends React.Component {
         <label className='category'>
           State:
           <select value={this.state.state} onChange={(e) => this.changeState(e)}>
+            <option value="-" selected='selected'>-</option>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AZ">AZ</option>
