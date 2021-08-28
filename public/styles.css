@@ -1,13 +1,84 @@
+
+body {
+  background-color: rgb(199, 251, 253);
+}
+
+.app {
+  height: 90%;
+}
+
+.main {
+  width: 90%;
+  margin: auto;
+  background-color: white;
+}
+
 .category {
   display: block;
   margin-bottom: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-right: 10px;
+}
+
+.register {
+  padding: 5px 15px;
+  border-right: 2px solid black;
 }
 
 .gigform {
+  padding: 5px 15px;
+}
+
+/* .gigform {
   margin-top: 50px;
+} */
+
+
+.nav-bar {
+  background-color: rgb(32, 32, 32);
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 60px;
+  padding-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  margin-bottom: 20px;
+}
+
+.musician-info {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.name {
+  font-size: 1.2em;
+  font-weight: 200;
+}
+
+.musicians-list {
+  margin: 0 10px;
 }
 
 .musician-card {
-  background-color: aqua;
-  margin-bottom: 8px;
+  background-color: rgb(238, 238, 238);
+  margin-bottom: 10px;
+  padding: 10px;
+  border: solid 1px rgb(6, 28, 34);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.musician-photo {
+  height: 130px;
+  width: 130px;
+  margin: 10px;
+  border-radius: 130px;
+  border: 3px solid black;
+  padding: 3px;
 }

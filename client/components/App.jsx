@@ -39,29 +39,28 @@ class App extends React.Component {
     let musiciansList;
     if (this.state.musicians.length) {
       musiciansList =
-      <div>
+      <div className='musicians-list'>
         <h3>Musicians matching your description</h3>
-        <ul>
-          {this.state.musicians.map((musician, id) => <li key={id}><Musician details={musician}/></li>)}
-        </ul>
+        {this.state.musicians.map((musician, id) => <Musician key={id} details={musician}/>)}
       </div>
     } else {
-      musiciansList = <h3>no musicians yet</h3>;
+      musiciansList = <div className='musicians-list'></div>;
     }
 
     console.log(musiciansList);
 
     return (
-      <div>
-        <div className='register'>
-        <h3>Register New Musician</h3>
-        <Register />
-        </div>
-
-        <div className='gigform'>
-        <h2>Find Musicians For Your Event</h2>
-        <h3>Enter Gig Info</h3>
-        <GigForm handleGigSubmit={this.handleGigSubmit} />
+      <div className='main'>
+        <nav className='nav-bar'><h1>Gigmaster</h1></nav>
+        <div className='container'>
+          <div className='register'>
+          <h3>Register New Musician</h3>
+          <Register />
+          </div>
+          <div className='gigform'>
+          <h3>Enter Gig Info</h3>
+          <GigForm handleGigSubmit={this.handleGigSubmit} />
+          </div>
         </div>
         {musiciansList}
       </div>

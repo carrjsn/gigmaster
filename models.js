@@ -7,8 +7,8 @@ const findMusicians = (options, callback) => {
   console.log('gig model options', options)
 
   // filter by minimum pay
+  db.query(`SELECT id, name, photo, min_pay, city, state, zip, max_travel, website, email FROM musicians WHERE min_pay < ${Number(options.pay)}`)
   // TODO: add more columns to extract here for react rendering later.. phone, website...
-  db.query(`SELECT id, name, min_pay, zip, max_travel, email FROM musicians WHERE min_pay < ${Number(options.pay)}`)
     .then( async (results) => {
       let musicians = [];
 

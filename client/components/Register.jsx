@@ -251,10 +251,10 @@ class Register extends React.Component {
           Photo:
           <input type='text' value={this.state.photo} onChange={(e) => this.changePhoto(e)}></input>
         </label>
-        <label className='category'>
+        {/* <label className='category'>
           Bio:
           <input type='text' value={this.state.bio} onChange={(e) => this.changeBio(e)}></input>
-        </label>
+        </label> */}
         <label className='category'>
           Website:
           <input type='text' value={this.state.website} onChange={(e) => this.changeWebsite(e)}></input>
@@ -267,10 +267,10 @@ class Register extends React.Component {
           Minimum Pay:
           <input type='text' value={this.state.minPay} onChange={(e) => this.changeMinPay(e)}></input>
         </label>
-        <label className='category'>
+        {/* <label className='category'>
           Phone:
           <input type='text' value={this.state.phone} onChange={(e) => this.changePhone(e)}></input>
-        </label>
+        </label> */}
         <label className='category'>
           Email:
           <input type='text' value={this.state.email} onChange={(e) => this.changeEmail(e)}></input>
